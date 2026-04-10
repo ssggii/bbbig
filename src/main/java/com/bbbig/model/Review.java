@@ -3,29 +3,29 @@ package com.bbbig.model;
 import java.time.LocalDateTime;
 
 public class Review {
-    private long id;
-    private long book_id;
+    private Long id;
+    private Long bookId;
     private double rating;
     private String content;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public Review(long book_id, double rating, String content) {
-        this.book_id = book_id;
+    public Review(Long book_id, double rating, String content) {
+        this.bookId = book_id;
         this.rating = rating;
         this.content = content;
-        this.created_at = LocalDateTime.now();
-        this.updated_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
 
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getBook_id() {
-        return book_id;
+    public Long getBookId() {
+        return bookId;
     }
 
     public double getRating() {
@@ -36,15 +36,15 @@ public class Review {
         return content;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

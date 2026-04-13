@@ -17,45 +17,55 @@ import java.time.LocalDateTime;
  */
 public class ReadingRecord {
 
-    //`READING_RECORDS`의 컬럼 5개와 타입을 Java 타입으로 매핑
-    private long id;
-    private long book_id;
-    private String status;
-    private LocalDate sentences;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    /* ---------- 1. 필드 (private) ---------- */
+    private Long id;                 // 주입용, 초기값 null
+    private final Long bookId;             // ERD의 book_id, 불변성을 표시하기 위해 fianl 붙임
+    private String status;           // ERD의 status
+    private LocalDate sentences;     // ERD의 sentences(날짜형), sentences의 타입을 LocalDate -> String으로 변경
+    private final LocalDateTime createdAt; // ERD의 created_at, 불변성을 표시하기 위해 fianl 붙임
+    private LocalDateTime updatedAt; // ERD의 updated_at
 
-    //생성자 구현, 매개변수로 `bookId`와 `status`만 받는 생성자를 사용
-    ReadingRecord readingRecord = new ReadingRecord(long bookId, String status);
+    /* ---------- 2. 생성자 ---------- */
+    public ReadingRecord(Long bookId, String status) {
+        this.bookId = bookId;
+        this.status = status;
+        //get 메서드 법칙에 맞게 수정
 
-    //`createdAt`과 `updatedAt`은 생성자 내부에서 `LocalDateTime.now()`로 자동 세팅
-
-
-    //각 필드에 대한 getter 메서드 추가
-    public long getBook_id() {
-        return book_id;
+        // 생성 시각과 최초 수정 시각을 현재 시간으로 설정
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
+
+    /* ---------- 3. getter ---------- */
+    public Long getId() {
+        return id;
+    }
+
+    public Long getBookId() {
+        return bookId;
+    }
+
     public String getStatus() {
         return status;
     }
-    public  LocalDate getSentences() {
+
+    public LocalDate getSentences() {
         return sentences;
     }
-    public  LocalDateTime getCreated_at() {
-        return created_at;
-    }
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-//    레포지토리가 `id`를 부여할 수 있도록 `setId(Long id)` 메서드를 작성합니다.
-    public long setId(){
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /* ---------- 4. setter (id 만 허용) ---------- */
+    public void setId(Long id) {
         this.id = id;
+        // setter 매개변수 추가
     }
-
-
-
-
 
 }
 

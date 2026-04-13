@@ -11,10 +11,15 @@ public class Review {
     private LocalDateTime updatedAt;
 
     public Review(Long bookId, Double rating, String content) {
-        if(rating == null || rating < 1.0 || rating > 5.0){
+        if (rating == null || rating < 1.0 || rating > 5.0) {
             throw new IllegalArgumentException("평점은 1~5점 사이여야 합니다");
-        }if(content == null|| content.trim().isEmpty()){
+        }
+        if (content == null || content.trim().isEmpty()) {
             throw new IllegalArgumentException("리뷰 내용 비울수 없습니다");
+        }
+
+        if (content.length() > 50) {
+            throw new IllegalArgumentException("리뷰 내용은 50자를 초과할 수 없습니다");
         }
         this.bookId = bookId;
         this.rating = rating;

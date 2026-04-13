@@ -2,6 +2,7 @@ package com.bbbig.repository;
 
 import com.bbbig.model.ReadingRecord;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReadingRecordRepository {
 
@@ -9,7 +10,7 @@ public interface ReadingRecordRepository {
 
     List<ReadingRecord> findAll(); // 독서기록 전체 조회
 
-    ReadingRecord findById(Long id); // 독서기록 상세 조회
+    Optional<ReadingRecord> findById(Long id); // 독서기록 상세 조회
 
     void updateStatus(Long id, String status); // 독서 기록의 상태 변경
 

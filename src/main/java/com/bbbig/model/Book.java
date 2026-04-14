@@ -1,6 +1,6 @@
 package com.bbbig.model;
 
-public class Books {
+public class Book {
     /*1.필드 추가*/
     private final Long id;
     private String title;
@@ -11,7 +11,7 @@ public class Books {
 
     /*2. 생성자 추가*/
 
-    public Books(Long id, String title, String author, String publisher) {
+    public Book(Long id, String title, String author, String publisher) {
         this.id = id;
         this.title = title;
         this.author = author;

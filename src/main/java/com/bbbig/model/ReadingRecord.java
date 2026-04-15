@@ -1,6 +1,5 @@
 package com.bbbig.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /*
@@ -21,7 +20,7 @@ public class ReadingRecord {
     private Long id;                 // 주입용, 초기값 null
     private final Long bookId;             // ERD의 book_id, 불변성을 표시하기 위해 fianl 붙임
     private String status;           // ERD의 status
-    private LocalDate sentences;     // ERD의 sentences(날짜형), sentences의 타입을 LocalDate -> String으로 변경
+    private String sentences;     // ERD의 sentences(날짜형), sentences의 타입을 LocalDate -> String으로 변경
     private final LocalDateTime createdAt; // ERD의 created_at, 불변성을 표시하기 위해 fianl 붙임
     private LocalDateTime updatedAt; // ERD의 updated_at
 
@@ -49,7 +48,7 @@ public class ReadingRecord {
         return status;
     }
 
-    public LocalDate getSentences() {
+    public String getSentences() {
         return sentences;
     }
 

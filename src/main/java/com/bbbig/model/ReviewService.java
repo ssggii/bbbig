@@ -2,6 +2,8 @@ package com.bbbig.model;
 
 import com.bbbig.repository.ReviewRepository;
 
+import java.util.List;
+
 public class ReviewService {
     private final ReviewRepository repository;
 
@@ -10,13 +12,18 @@ public class ReviewService {
         this.repository = repository;
     }
 
-    public void createReview(Long bookId, double rating, String content) {
-
+    public Review createReview(Long bookId, double rating, String content) {
         Review newReview = new Review(bookId, rating, content);
-        repository.save(newReview);
-
-
-
+        return repository.save(newReview);
     }
+
+    public Review findReview(Long id) {
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
+    }
+
+    public List<Review> findAllReview() {
+        return repository.findAll();
+    }
+
 
 }

@@ -10,9 +10,9 @@ public class Review {
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public void update(Double rating, String content) {
-        ratingCook(rating);
-        contentCook(content);
+    public void updateDto(Double rating, String content) {
+        checkRating(rating);
+        checkConten(content);
 
         this.rating = rating;
         this.content = content;
@@ -20,8 +20,8 @@ public class Review {
     }
 
     public Review(Long bookId, Double rating, String content) {
-        ratingCook(rating);
-        contentCook(content);
+        checkRating(rating);
+        checkConten(content);
 
         this.bookId = bookId;
         this.rating = rating;
@@ -30,13 +30,13 @@ public class Review {
         this.updatedAt = this.createdAt;
     }
 
-    private void ratingCook(Double rating) {
+    private void checkRating(Double rating) {
         if (rating == null || rating < 1.0 || rating > 5.0) {
             throw new IllegalArgumentException("평점은 1~5점 사이여야 합니다");
         }
     }
 
-    private void contentCook(String content) {
+    private void checkConten(String content) {
         if (content == null || content.trim().isEmpty() || content.length() > 50) {
             throw new IllegalArgumentException("리뷰 내용은 비우거나 50글자를 초과해서 안됩니다");
         }

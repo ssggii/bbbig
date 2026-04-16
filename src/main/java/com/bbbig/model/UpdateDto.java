@@ -1,8 +1,8 @@
 package com.bbbig.model;
 
-public class Update {
-    private Double rating;
-    private String content;
+public class UpdateDto {
+    private final Double rating;
+    private final String content;
 
     public Double getRating() {
         return rating;
@@ -12,7 +12,7 @@ public class Update {
         return content;
     }
 
-    public Update(Double rating, String content) {
+    public UpdateDto(Double rating, String content) {
         this.rating = rating;
         this.content = content;
     }

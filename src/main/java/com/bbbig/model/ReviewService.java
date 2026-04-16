@@ -12,7 +12,7 @@ public class ReviewService {
         this.repository = repository;
     }
 
-    public Review createReview(Long bookId, double rating, String content) {
+    public Review createReview(Long bookId, Double rating, String content) {
         Review newReview = new Review(bookId, rating, content);
         return repository.save(newReview);
     }
@@ -25,13 +25,18 @@ public class ReviewService {
         return repository.findAll();
     }
 
-    public Review Update(Long id, Update update) {
+    public Review Update(Long id, UpdateDto updateDto) {
         Review updatereivew = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
 
-        updatereivew.update(update.getRating(), update.getContent());
+        updatereivew.updateDto(updateDto.getRating(), updateDto.getContent());
         return repository.save(updatereivew);
     }
 
+    public void deleteReview(Long id) {
+        repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
+        repository.deleteById(id);
 
+    }
 }

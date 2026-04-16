@@ -37,7 +37,7 @@ public class Review {
     }
 
     private void checkConten(String content) {
-        if (content == null || content.trim().isEmpty() || content.length() > 50) {
+        if (content == null || content().isBlank() || content.length() > 50) {
             throw new IllegalArgumentException("리뷰 내용은 비우거나 50글자를 초과해서 안됩니다");
         }
     }

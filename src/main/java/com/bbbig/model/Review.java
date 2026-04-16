@@ -10,6 +10,15 @@ public class Review {
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public void update(Double rating, String content) {
+        ratingCook(rating);
+        contentCook(content);
+
+        this.rating = rating;
+        this.content = content;
+        this.updatedAt = LocalDateTime.now();
+    }
+
     public Review(Long bookId, Double rating, String content) {
         ratingCook(rating);
         contentCook(content);
@@ -21,7 +30,6 @@ public class Review {
         this.updatedAt = this.createdAt;
     }
 
-    
     private void ratingCook(Double rating) {
         if (rating == null || rating < 1.0 || rating > 5.0) {
             throw new IllegalArgumentException("평점은 1~5점 사이여야 합니다");

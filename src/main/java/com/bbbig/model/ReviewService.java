@@ -5,8 +5,8 @@ import com.bbbig.repository.ReviewRepository;
 import java.util.List;
 
 public class ReviewService {
-    private final ReviewRepository repository;
 
+    private final ReviewRepository repository;
 
     public ReviewService(ReviewRepository repository) {
         this.repository = repository;
@@ -23,6 +23,14 @@ public class ReviewService {
 
     public List<Review> findAllReview() {
         return repository.findAll();
+    }
+
+    public Review Update(Long id, Update update) {
+        Review updatereivew = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
+
+        updatereivew.update(update.getRating(), update.getContent());
+        return repository.save(updatereivew);
     }
 
 

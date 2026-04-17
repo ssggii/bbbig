@@ -10,18 +10,19 @@ public class Review {
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public void updateDto(Double rating, String content) {
-        checkRating(rating);
-        checkConten(content);
-
-        this.rating = rating;
-        this.content = content;
+    public void updatDto(UpdateDto dto) {
+        if (dto.getRating() != null) {
+            this.rating = dto.getRating();
+        }
+        if (dto.getContent() != null) {
+            this.content = dto.getContent();
+        }
         this.updatedAt = LocalDateTime.now();
     }
 
     public Review(Long bookId, Double rating, String content) {
         checkRating(rating);
-        checkConten(content);
+        checkContent(content);
 
         this.bookId = bookId;
         this.rating = rating;
@@ -36,10 +37,15 @@ public class Review {
         }
     }
 
-    private void checkConten(String content) {
-        if (content == null || content().isBlank() || content.length() > 50) {
-            throw new IllegalArgumentException("리뷰 내용은 비우거나 50글자를 초과해서 안됩니다");
+    private String checkContent(String content) {
+        if (content == null || content.isBlank()) {
+            throw new IllegalArgumentException("리뷰 내용은 비우면 안됩니다");
         }
+        String trimcontent = content.trim();
+        if (trimcontent.length() > 50) {
+            throw new IllegalArgumentException("리뷰 내용은 50글자를 초과해서 안됩니다");
+        }
+        return trimcontent;
     }
 
 

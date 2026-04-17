@@ -25,12 +25,12 @@ public class ReviewService {
         return repository.findAll();
     }
 
-    public Review Update(Long id, UpdateDto updateDto) {
-        Review updatereivew = repository.findById(id)
+    public Review update(Long id, UpdateDto updateDto) {
+        Review update = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
 
-        updatereivew.updateDto(updateDto.getRating(), updateDto.getContent());
-        return repository.save(updatereivew);
+        update.updatDto(updateDto);
+        return repository.save(update);
     }
 
     public void deleteReview(Long id) {

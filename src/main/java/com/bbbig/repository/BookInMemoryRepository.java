@@ -4,7 +4,7 @@ import com.bbbig.model.Book;
 
 import java.util.*;
 
-public class BookInMemoryRepository implements BookRepository{
+public class BookInMemoryRepository implements BookRepository {
     /*
      * 책 데이터를 저장하는 곳 : store
      * HashMap을 사용하며 <키, 값> 형태로 저장
@@ -15,38 +15,36 @@ public class BookInMemoryRepository implements BookRepository{
     private static Long sequence = 0L;
 
     public BookInMemoryRepository() {
-        if (store.isEmpty()){ // 데이터 중복 생성 방지
+        if (store.isEmpty()) { // 데이터 중복 생성 방지
             initDummyData();
         }
     }
 
     private void initDummyData() {
-        save(new Book(null, "자바의 정석", "남궁성", "도우출판"));
-        save(new Book(null, "이것이 자바다", "신용권", "한빛미디어"));
-        save(new Book(null, "스프링 부트 실전", "김영한", "인프런"));
-        save(new Book(null, "Clean Code", "Robert C. Martin", "Pearson"));
-        save(new Book(null, "Effective Java", "Joshua Bloch", "Addison-Wesley"));
-        save(new Book(null, "모던 자바 인 액션", "라울-게이브리얼 우르마", "한빛미디어"));
-        save(new Book(null, "객체지향의 사실과 오해", "조영호", "위키북스"));
-        save(new Book(null, "Refactoring", "Martin Fowler", "Addison-Wesley"));
-        save(new Book(null, "데이터베이스 개론", "박우창", "한빛아카데미"));
-        save(new Book(null, "토비의 스프링", "이일민", "에이콘"));
+        save(new Book(1L, "자바의 정석", "남궁성", "도우출판"));
+        save(new Book(2L, "이것이 자바다", "신용권", "한빛미디어"));
+        save(new Book(3L, "스프링 부트 실전", "김영한", "인프런"));
+        save(new Book(4L, "Clean Code", "Robert C. Martin", "Pearson"));
+        save(new Book(5L, "Effective Java", "Joshua Bloch", "Addison-Wesley"));
+        save(new Book(6L, "모던 자바 인 액션", "라울-게이브리얼 우르마", "한빛미디어"));
+        save(new Book(7L, "객체지향의 사실과 오해", "조영호", "위키북스"));
+        save(new Book(8L, "Refactoring", "Martin Fowler", "Addison-Wesley"));
+        save(new Book(9L, "데이터베이스 개론", "박우창", "한빛아카데미"));
+        save(new Book(10L, "토비의 스프링", "이일민", "에이콘"));
     }
 
     /*
-    * 책 생성(수정)
-    * @return 생성 또는 수정된 Book
-    * */
+     * 책 생성(수정)
+     * @return 생성 또는 수정된 Book
+     * */
     @Override
     public Book save(Book book) {
-//        Book Entity의 id 값에 final이 붙어있어 setter 생성 불가
-//        Entity를 한 번에 변경 시 충돌 우려가 있어 주석처리
-//        if (book.getId() == null){
-//            book.setId(++sequence);
-//            store.put(sequence, book);
-//        } else {
-//            store.put(book.getId(), book);
-//        }
+        if (book.getId() == null) {
+            book.assignId(++sequence);
+            store.put(book.getId(), book);
+        } else {
+            store.put(book.getId(), book);
+        }
         return book;
     }
 
@@ -66,8 +64,8 @@ public class BookInMemoryRepository implements BookRepository{
     @Override
     public List<Book> findByTitleContaining(String title) {
         List<Book> result = new ArrayList<>();
-        for (Book book : store.values()){
-            if (book.getTitle().contains(title)){
+        for (Book book : store.values()) {
+            if (book.getTitle().contains(title)) {
                 result.add(book);
             }
         }
@@ -81,8 +79,8 @@ public class BookInMemoryRepository implements BookRepository{
     @Override
     public List<Book> findByAuthorContaining(String author) {
         List<Book> result = new ArrayList<>();
-        for (Book book : store.values()){
-            if (book.getAuthor().contains(author)){
+        for (Book book : store.values()) {
+            if (book.getAuthor().contains(author)) {
                 result.add(book);
             }
         }

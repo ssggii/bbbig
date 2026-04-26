@@ -2,7 +2,7 @@ package com.bbbig.model;
 
 public class Book {
     /*1.필드 추가*/
-    private final Long id;
+    private Long id;
     private String title;
     private String author;
     private String publisher;
@@ -18,6 +18,9 @@ public class Book {
         this.publisher = publisher;
     }
 
+    public void assignId(Long id) {
+        this.id = id;
+    }
     /*3.Getter 생성   */
 
     public Long getId() {

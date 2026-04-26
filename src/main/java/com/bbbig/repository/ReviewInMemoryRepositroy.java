@@ -4,12 +4,12 @@ import com.bbbig.model.Review;
 
 import java.util.*;
 
-public class ReviewInMemoryRepositroy implements ReviewRepository{
+public class ReviewInMemoryRepositroy implements ReviewRepository {
     /*
-    * 리뷰 데이터를 저장하는 곳 : store
-    * HashMap을 사용하며 <키, 값> 형태로 저장
-    * <키, 값> = <Long, Review>  ==> <리뷰 ID, 리뷰 객체>
-    * */
+     * 리뷰 데이터를 저장하는 곳 : store
+     * HashMap을 사용하며 <키, 값> 형태로 저장
+     * <키, 값> = <Long, Review>  ==> <리뷰 ID, 리뷰 객체>
+     * */
     Map<Long, Review> store = new HashMap<>();
 
     private Long sequence = 0L;
@@ -19,11 +19,24 @@ public class ReviewInMemoryRepositroy implements ReviewRepository{
     @Override
     public Review save(Review review) {
         if (review.getId() == null) {
-            review.setId(++sequence);
-            store.put(sequence, review);
+            return create(review);
         } else {
-            store.put(review.getId(), review);
+            return update(review);
         }
+    }
+
+    private Review create(Review review) {
+        Long newId = ++sequence;
+        review.assignId(newId);
+        store.put(newId, review);
+        return review;
+    }
+
+    private Review update(Review review) {
+        if (!store.containsKey(review.getId())) {
+            throw new IllegalArgumentException("존재하지 않는 리뷰는 수정할 수 없습니다");
+        }
+        store.put(review.getId(), review);
         return review;
     }
 
@@ -49,5 +62,18 @@ public class ReviewInMemoryRepositroy implements ReviewRepository{
     @Override
     public boolean existsById(Long id) {
         return store.containsKey(id);
+    }
+
+
+    //특정 책 번호로 리뷰 목록 조회
+    @Override
+    public List<Review> findByBookId(Long bookId) {
+        List<Review> result = new ArrayList<>();
+        for (Review review : store.values()) {
+            if (review.getBookId().equals(bookId)) {
+                result.add(review);
+            }
+        }
+        return result;
     }
 }

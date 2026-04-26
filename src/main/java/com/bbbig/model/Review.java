@@ -1,35 +1,48 @@
 package com.bbbig.model;
 
+import com.bbbig.dto.UpdateDto;
+
 import java.time.LocalDateTime;
 
 public class Review {
     private Long id;
-    private final Long bookId;
+    private Long bookId;
     private Double rating;
     private String content;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public void updatDto(UpdateDto dto) {
-        if (dto.getRating() != null) {
-            this.rating = dto.getRating();
+    public void update(UpdateDto updateDto) {
+        if (updateDto.rating() != null) {
+            checkRating(updateDto.rating());
+            this.rating = updateDto.rating();
         }
-        if (dto.getContent() != null) {
-            this.content = dto.getContent();
+        if (updateDto.content() != null) {
+            checkContent(updateDto.content());
+            this.content = updateDto.content();
         }
         this.updatedAt = LocalDateTime.now();
     }
 
     public Review(Long bookId, Double rating, String content) {
         checkRating(rating);
-        checkContent(content);
+
 
         this.bookId = bookId;
         this.rating = rating;
-        this.content = content;
+        this.content = checkContent(content);
         this.createdAt = LocalDateTime.now();
         this.updatedAt = this.createdAt;
     }
+
+
+    public void assignId(Long id) {
+        if (this.id != null) {
+            throw new IllegalArgumentException("id가 이미 있드아!!");
+        }
+        this.id = id;
+    }
+
 
     private void checkRating(Double rating) {
         if (rating == null || rating < 1.0 || rating > 5.0) {
@@ -73,9 +86,6 @@ public class Review {
         return updatedAt;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 }
 

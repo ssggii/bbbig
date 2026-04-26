@@ -1,11 +1,9 @@
-package com.bbbig.model;
+package com.bbbig.dto;
 
-public class UpdateDto {
-    private final Double rating;
-    private final String content;
+public record UpdateDto(Double rating, String content) {
 
 
-    public UpdateDto(Double rating, String content) {
+    public UpdateDto {
         if (rating == null && content == null) {
             throw new IllegalArgumentException("수정할 값을 최소 하나는 입력해주세요");
         }
@@ -22,15 +20,7 @@ public class UpdateDto {
                 throw new IllegalArgumentException("리뷰는 50자를 초과할 수 없습니다");
             }
         }
-        this.rating = rating;
-        this.content = content;
+
     }
 
-    public Double getRating() {
-        return rating;
-    }
-
-    public String getContent() {
-        return content;
-    }
 }

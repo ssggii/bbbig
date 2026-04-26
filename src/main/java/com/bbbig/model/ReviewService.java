@@ -1,5 +1,8 @@
 package com.bbbig.model;
 
+import com.bbbig.dto.CreateDto;
+import com.bbbig.dto.GetReviewDto;
+import com.bbbig.dto.UpdateDto;
 import com.bbbig.repository.ReviewRepository;
 
 import java.util.List;
@@ -12,31 +15,37 @@ public class ReviewService {
         this.repository = repository;
     }
 
-    public Review createReview(Long bookId, Double rating, String content) {
-        Review newReview = new Review(bookId, rating, content);
-        return repository.save(newReview);
+
+    public GetReviewDto createReview(CreateDto dto) {
+        Review review = new Review(dto.bookId(), dto.rating(), dto.content());
+        Review saveReview = repository.save(review);
+        return GetReviewDto.from(saveReview);
     }
 
-    public Review findReview(Long id) {
-        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
+    public GetReviewDto getReview(Long id) {
+        Review review = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
+
+        return GetReviewDto.from(review);
     }
 
-    public List<Review> findAllReview() {
-        return repository.findAll();
+
+    public GetReviewDto update(Long id, UpdateDto updateDto) {
+        Review review = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
+        review.update(updateDto);
+        repository.save(review);
+        return GetReviewDto.from(review);
     }
 
-    public Review update(Long id, UpdateDto updateDto) {
-        Review update = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
-
-        update.updatDto(updateDto);
-        return repository.save(update);
-    }
-
-    public void deleteReview(Long id) {
-        repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다"));
+    public void deleteReivew(Long id) {
+        if (!repository.existsById(id)) {
+            throw new IllegalArgumentException("삭제할 ID가 없습니다");
+        }
         repository.deleteById(id);
 
+
+    }
+
+    public List<Review> getReviewsByBookId(Long bookId) {
+        return repository.findByBookId(bookId);
     }
 }

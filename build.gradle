@@ -8,10 +8,13 @@ version = '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
-
+ 
 dependencies {
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    implementation 'org.glassfish.expressly:expressly:5.0.0'
 }
 
 test {
